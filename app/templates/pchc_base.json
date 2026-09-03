@@ -1,0 +1,65 @@
+{
+  "id": "pchc_base",
+  "name": "PCHC New Check Design",
+  "page_width_mm": 190.5,
+  "page_height_mm": 88.9,
+  "stub_width_mm": 0,
+  "offset_x_mm": 0,
+  "offset_y_mm": 0,
+  "micr_clear_mm": 15.9,
+  "brand": {
+    "primary": "#1f4d3a",
+    "paper": "#f4f7f2",
+    "box": "#8aa090"
+  },
+  "guide": {
+    "bank_name": "PHILIPPINE BANK",
+    "account_name": "ACCOUNT NAME"
+  },
+  "fields": {
+    "date": {
+      "x_mm": 135.5,
+      "y_mm": 6.2,
+      "width_mm": 48.0,
+      "height_mm": 7.4,
+      "char_count": 10,
+      "font_pt": 10
+    },
+    "payee": {
+      "x_mm": 11.0,
+      "y_mm": 27.8,
+      "width_mm": 118.0,
+      "height_mm": 7.6,
+      "font_pt": 11
+    },
+    "amount_figures": {
+      "x_mm": 139.0,
+      "y_mm": 26.2,
+      "width_mm": 43.5,
+      "height_mm": 9.6,
+      "font_pt": 12,
+      "align": "right"
+    },
+    "amount_words": {
+      "x_mm": 11.0,
+      "y_mm": 41.6,
+      "width_mm": 168.0,
+      "height_mm": 7.2,
+      "font_pt": 9
+    },
+    "memo": {
+      "x_mm": 11.0,
+      "y_mm": 54.2,
+      "width_mm": 78.0,
+      "height_mm": 6.5,
+      "font_pt": 9
+    },
+    "signature": {
+      "x_mm": 133.0,
+      "y_mm": 61.2,
+      "width_mm": 49.5,
+      "height_mm": 11.0,
+      "count": 1
+    }
+  }
+}

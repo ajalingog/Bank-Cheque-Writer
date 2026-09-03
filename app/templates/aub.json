@@ -1,0 +1,21 @@
+{
+  "id": "aub",
+  "name": "Asia United Bank",
+  "extends": "pchc_base",
+  "brand": { "primary": "#7a1f2b", "paper": "#f9f4f5", "box": "#b89096" },
+  "guide": { "bank_name": "ASIA UNITED BANK" },
+  "fields": {
+    "date": { "x_mm": 134.4, "y_mm": 6.6, "width_mm": 48.8, "height_mm": 7.5 },
+    "payee": { "x_mm": 11.5, "y_mm": 26.9, "width_mm": 117.4 },
+    "amount_figures": { "x_mm": 137.8, "y_mm": 25.2, "width_mm": 44.8, "height_mm": 9.3 },
+    "amount_words": { "x_mm": 11.5, "y_mm": 40.9, "width_mm": 165.6 },
+    "signature": { "x_mm": 131.4, "y_mm": 61.7, "width_mm": 51.0, "height_mm": 11.0, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 106.8, "y_mm": 60.8, "width_mm": 75.6, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

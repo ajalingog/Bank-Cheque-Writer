@@ -1,0 +1,21 @@
+{
+  "id": "pnb",
+  "name": "Philippine National Bank",
+  "extends": "pchc_base",
+  "brand": { "primary": "#003087", "paper": "#f4f6fb", "box": "#8090b8" },
+  "guide": { "bank_name": "PHILIPPINE NATIONAL BANK" },
+  "fields": {
+    "date": { "x_mm": 135.0, "y_mm": 6.8, "width_mm": 48.2, "height_mm": 7.4 },
+    "payee": { "x_mm": 11.2, "y_mm": 27.4, "width_mm": 117.8 },
+    "amount_figures": { "x_mm": 138.6, "y_mm": 25.8, "width_mm": 44.0, "height_mm": 9.5 },
+    "amount_words": { "x_mm": 11.2, "y_mm": 41.4, "width_mm": 166.0 },
+    "signature": { "x_mm": 132.0, "y_mm": 61.6, "width_mm": 50.5, "height_mm": 11.0, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 107.0, "y_mm": 60.8, "width_mm": 75.5, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "bdo",
+  "name": "BDO Unibank",
+  "extends": "pchc_base",
+  "brand": { "primary": "#0033a0", "paper": "#f3f6fb", "box": "#7d93c4" },
+  "guide": { "bank_name": "BDO UNIBANK, INC." },
+  "fields": {
+    "date": { "x_mm": 132.4, "y_mm": 6.4, "width_mm": 50.2, "height_mm": 7.6 },
+    "payee": { "x_mm": 12.2, "y_mm": 26.2, "width_mm": 115.5 },
+    "amount_figures": { "x_mm": 136.8, "y_mm": 24.4, "width_mm": 45.8, "height_mm": 9.2 },
+    "amount_words": { "x_mm": 12.2, "y_mm": 40.2, "width_mm": 164.5 },
+    "signature": { "x_mm": 130.0, "y_mm": 62.0, "width_mm": 52.0, "height_mm": 10.6, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 106.0, "y_mm": 60.8, "width_mm": 76.5, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

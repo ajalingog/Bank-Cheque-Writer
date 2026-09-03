@@ -1,0 +1,21 @@
+{
+  "id": "chinabank",
+  "name": "China Bank",
+  "extends": "pchc_base",
+  "brand": { "primary": "#c8102e", "paper": "#fbf5f5", "box": "#c4949a" },
+  "guide": { "bank_name": "CHINA BANKING CORPORATION" },
+  "fields": {
+    "date": { "x_mm": 135.2, "y_mm": 6.5, "width_mm": 48.0, "height_mm": 7.4 },
+    "payee": { "x_mm": 11.0, "y_mm": 27.6, "width_mm": 118.4 },
+    "amount_figures": { "x_mm": 138.8, "y_mm": 26.0, "width_mm": 43.8, "height_mm": 9.5 },
+    "amount_words": { "x_mm": 11.0, "y_mm": 41.8, "width_mm": 167.2 },
+    "signature": { "x_mm": 132.6, "y_mm": 61.4, "width_mm": 50.0, "height_mm": 11.2, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 107.8, "y_mm": 60.6, "width_mm": 74.8, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

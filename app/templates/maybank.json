@@ -1,0 +1,21 @@
+{
+  "id": "maybank",
+  "name": "Maybank Philippines",
+  "extends": "pchc_base",
+  "brand": { "primary": "#ffc600", "paper": "#fffbef", "box": "#c4b06a" },
+  "guide": { "bank_name": "MAYBANK PHILIPPINES, INC." },
+  "fields": {
+    "date": { "x_mm": 134.8, "y_mm": 6.3, "width_mm": 48.4, "height_mm": 7.5 },
+    "payee": { "x_mm": 11.2, "y_mm": 27.1, "width_mm": 117.6 },
+    "amount_figures": { "x_mm": 138.4, "y_mm": 25.5, "width_mm": 44.2, "height_mm": 9.4 },
+    "amount_words": { "x_mm": 11.2, "y_mm": 41.1, "width_mm": 166.2 },
+    "signature": { "x_mm": 131.8, "y_mm": 61.5, "width_mm": 50.6, "height_mm": 11.0, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 107.4, "y_mm": 60.7, "width_mm": 75.0, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

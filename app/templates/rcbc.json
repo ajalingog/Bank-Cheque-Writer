@@ -1,0 +1,21 @@
+{
+  "id": "rcbc",
+  "name": "RCBC",
+  "extends": "pchc_base",
+  "brand": { "primary": "#003da5", "paper": "#f3f6fb", "box": "#8096c2" },
+  "guide": { "bank_name": "RIZAL COMMERCIAL BANKING CORPORATION" },
+  "fields": {
+    "date": { "x_mm": 134.2, "y_mm": 6.4, "width_mm": 48.8, "height_mm": 7.5 },
+    "payee": { "x_mm": 10.8, "y_mm": 27.2, "width_mm": 118.2 },
+    "amount_figures": { "x_mm": 138.0, "y_mm": 25.4, "width_mm": 44.6, "height_mm": 9.4 },
+    "amount_words": { "x_mm": 10.8, "y_mm": 41.0, "width_mm": 166.8 },
+    "signature": { "x_mm": 131.6, "y_mm": 61.4, "width_mm": 50.8, "height_mm": 11.2, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 107.2, "y_mm": 60.6, "width_mm": 75.2, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

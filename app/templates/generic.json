@@ -1,0 +1,14 @@
+{
+  "id": "generic",
+  "name": "Other bank (PCHC)",
+  "extends": "pchc_base",
+  "brand": { "primary": "#1f4d3a", "paper": "#f4f7f2", "box": "#8aa090" },
+  "guide": { "bank_name": "PHILIPPINE BANK (PCHC)" },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 108.0, "y_mm": 60.6, "width_mm": 74.5, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

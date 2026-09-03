@@ -1,0 +1,21 @@
+{
+  "id": "dbp",
+  "name": "Development Bank of the Philippines",
+  "extends": "pchc_base",
+  "brand": { "primary": "#00573f", "paper": "#f2f7f4", "box": "#7a9a88" },
+  "guide": { "bank_name": "DEVELOPMENT BANK OF THE PHILIPPINES" },
+  "fields": {
+    "date": { "x_mm": 136.0, "y_mm": 5.8, "width_mm": 47.6, "height_mm": 7.3 },
+    "payee": { "x_mm": 10.6, "y_mm": 28.0, "width_mm": 118.6 },
+    "amount_figures": { "x_mm": 139.4, "y_mm": 26.4, "width_mm": 43.4, "height_mm": 9.8 },
+    "amount_words": { "x_mm": 10.6, "y_mm": 42.2, "width_mm": 168.4 },
+    "signature": { "x_mm": 133.8, "y_mm": 61.2, "width_mm": 49.2, "height_mm": 11.2, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 108.0, "y_mm": 60.4, "width_mm": 75.0, "height_mm": 12.0, "count": 2 }
+      }
+    }
+  }
+}

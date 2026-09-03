@@ -1,0 +1,21 @@
+{
+  "id": "metrobank",
+  "name": "Metrobank",
+  "extends": "pchc_base",
+  "brand": { "primary": "#00447c", "paper": "#f3f6f9", "box": "#7e99b0" },
+  "guide": { "bank_name": "METROPOLITAN BANK & TRUST COMPANY" },
+  "fields": {
+    "date": { "x_mm": 133.0, "y_mm": 6.2, "width_mm": 49.6, "height_mm": 7.5 },
+    "payee": { "x_mm": 11.6, "y_mm": 25.8, "width_mm": 117.0 },
+    "amount_figures": { "x_mm": 137.0, "y_mm": 24.0, "width_mm": 45.6, "height_mm": 9.4 },
+    "amount_words": { "x_mm": 11.6, "y_mm": 39.8, "width_mm": 165.5 },
+    "signature": { "x_mm": 129.4, "y_mm": 62.4, "width_mm": 53.0, "height_mm": 10.2, "count": 1 }
+  },
+  "variants": {
+    "corporate": {
+      "fields": {
+        "signature": { "x_mm": 105.5, "y_mm": 61.0, "width_mm": 77.0, "height_mm": 11.8, "count": 2 }
+      }
+    }
+  }
+}
