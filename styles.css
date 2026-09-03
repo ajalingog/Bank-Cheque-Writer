@@ -1,0 +1,190 @@
+:root {
+  --green: #1f4d3a;
+  --green-2: #2e6b52;
+  --paper: #e7eee6;
+  --ink: #122018;
+  --muted: #5b6b62;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background: #cfd9cc;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  min-height: 100%;
+}
+
+.panel {
+  background: #f7faf6;
+  padding: 24px 22px 32px;
+  border-right: 1px solid #c3d0c2;
+  overflow: auto;
+}
+h1 { font-size: 1.25rem; margin: 0 0 8px; color: var(--green); }
+h2 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--green); text-transform: uppercase; letter-spacing: 0.04em; }
+.lede, .hint { color: var(--muted); font-size: 0.88rem; line-height: 1.4; }
+label { display: block; font-size: 0.8rem; font-weight: 600; margin-top: 12px; color: var(--green); }
+input, select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border: 1px solid #b7c6b6;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+.check { font-weight: 500; display: flex; gap: 8px; align-items: flex-start; }
+.check input { width: auto; margin-top: 2px; }
+input[readonly] { background: #eef3ef; color: #355343; }
+.actions { display: flex; gap: 8px; margin-top: 16px; }
+button {
+  background: var(--green);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button.secondary { background: #4d6558; }
+button:hover { background: var(--green-2); }
+
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  overflow: auto;
+}
+
+#sheet {
+  background: #d5dfd3;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(18, 32, 24, 0.18);
+}
+
+#cheque {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #8aa090;
+  background: #f4f7f2;
+}
+
+#sizeCaption {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #44554a;
+}
+
+.guide-art { position: absolute; inset: 0; }
+.bank-name {
+  position: absolute; left: 8mm; top: 4mm;
+  font-size: 9pt; font-weight: 700; color: var(--green);
+}
+.acct-name { position: absolute; left: 8mm; top: 10mm; font-size: 7pt; color: #4a5c50; }
+.label { position: absolute; font-size: 6.5pt; color: #6b7c70; }
+.pay-label { left: 8mm; top: 21mm; }
+.date-label { left: 133mm; top: 3.2mm; }
+.date-hint { left: 133mm; top: 14mm; font-size: 5.5pt; }
+.pesos-label { left: 8mm; top: 36.5mm; }
+.sig-label { left: 128mm; top: 58mm; width: 52mm; text-align: center; }
+.peso-sign {
+  position: absolute; font-weight: 700; color: var(--green); font-size: 10pt;
+}
+.date-boxes { position: absolute; display: flex; }
+.date-boxes span {
+  flex: 1;
+  border: 0.2mm solid #8aa090;
+  background: #fff;
+  margin-right: 0.3mm;
+}
+.box { position: absolute; border: 0.25mm solid #8aa090; background: #fff; }
+.sig-box { left: 128mm; top: 62mm; width: 52mm; height: 10mm; background: transparent; }
+.micr {
+  position: absolute; left: 10mm; bottom: 4mm; width: 170mm;
+  font-family: "Courier New", monospace; font-size: 8pt; color: #9aaa9a;
+}
+
+.overlay { position: absolute; inset: 0; pointer-events: none; }
+.field {
+  position: absolute;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.field.date {
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.field.date span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.field.figures {
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  justify-content: flex-end;
+  padding-right: 1.2mm;
+}
+.field.payee, .field.words-line { font-weight: 700; }
+
+@media print {
+  @page {
+    margin: 0;
+  }
+  html, body {
+    background: #fff !important;
+    height: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .app {
+    display: block !important;
+    min-height: 0;
+  }
+  .app > .panel { display: none !important; }
+  .stage {
+    display: block !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+  #sheet {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0;
+    box-shadow: none;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  #cheque {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none;
+    overflow: visible;
+    margin: 0;
+  }
+  .guide-art { display: none !important; }
+  .field { color: #000; }
+  #sizeCaption { display: none !important; }
+}
