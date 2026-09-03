@@ -1,12 +1,9 @@
-# Deploy the static website (web/) to GitHub Pages
+# Deploy the static website to GitHub Pages on every push to main
 name: Deploy website
 
 on:
   push:
     branches: [main]
-    paths:
-      - "web/**"
-      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:
