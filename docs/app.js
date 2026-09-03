@@ -104,7 +104,6 @@ function applyLayout() {
   const inchesH = (CHEQUE_HEIGHT_MM / 25.4).toFixed(2);
   const paperLabel =
     paperMode.value === "letter" ? "on Letter paper, top-left" :
-    paperMode.value === "cheque" ? "on 8 × 3.5 in cheque stock" :
     "on A4 paper, top-left";
   document.getElementById("sizeCaption").textContent =
     `Cheque ${inchesW} × ${inchesH} in (${CHEQUE_WIDTH_MM.toFixed(1)} × ${CHEQUE_HEIGHT_MM.toFixed(1)} mm) · ${paperLabel}`;
@@ -262,11 +261,20 @@ function setPrintPageSize() {
     rule.id = "printPageRule";
     document.head.appendChild(rule);
   }
-  const size =
-    paperMode.value === "letter" ? "letter portrait" :
-    paperMode.value === "cheque" ? "8in 3.5in" :
-    "A4 portrait";
-  rule.textContent = `@media print { @page { size: ${size}; margin: 0; } }`;
+  let pageCss = "A4 portrait";
+  let sheetW = "210mm";
+  let sheetH = "297mm";
+  if (paperMode.value === "letter") {
+    pageCss = "letter portrait";
+    sheetW = "215.9mm";
+    sheetH = "279.4mm";
+  }
+  rule.textContent = `
+    @media print {
+      @page { size: ${pageCss}; margin: 0; }
+      #sheet { width: ${sheetW} !important; height: ${sheetH} !important; }
+    }
+  `;
 }
 
 function printCheque() {
@@ -315,7 +323,7 @@ wordsMode.addEventListener("change", () => {
 
 dateInput.value = todayIso();
 wordsMode.value = localStorage.getItem("cheque-words-mode") || "auto";
-paperMode.value = localStorage.getItem("cheque-paper-mode") || "a4";
+paperMode.value = localStorage.getItem("cheque-paper-mode") === "letter" ? "letter" : "a4";
 applyWordsMode();
 setPrintPageSize();
 loadBanks();

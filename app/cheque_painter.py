@@ -9,7 +9,7 @@ from PySide6.QtCore import QRectF, Qt
 from PySide6.QtGui import QColor, QFont, QFontMetricsF, QPainter, QPen
 
 PAPER_SIZES_MM = {
-    "cheque": (190.5, 88.9),
+    "cheque": (203.2, 88.9),
     "letter": (215.9, 279.4),
     "a4": (210.0, 297.0),
 }
@@ -32,7 +32,7 @@ class DrawOptions:
 
 def page_size_mm(paper_mode: str, feed: str, template: dict[str, Any]) -> tuple[float, float]:
     if paper_mode == "cheque":
-        width = float(template.get("page_width_mm", 190.5))
+        width = float(template.get("page_width_mm", 203.2))
         height = float(template.get("page_height_mm", 88.9))
         if feed == "left_first":
             return height, width
@@ -79,7 +79,7 @@ def paint_cheque(
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
     painter.setRenderHint(QPainter.RenderHint.TextAntialiasing, True)
 
-    cheque_w = float(template.get("page_width_mm", 190.5))
+    cheque_w = float(template.get("page_width_mm", 203.2))
     cheque_h = float(template.get("page_height_mm", 88.9))
     origin_x = calibration.stub_width_mm + float(template.get("offset_x_mm", 0)) + calibration.offset_x_mm
     origin_y = float(template.get("offset_y_mm", 0)) + calibration.offset_y_mm

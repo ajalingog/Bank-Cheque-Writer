@@ -170,11 +170,14 @@ button:hover { background: var(--green-2); }
     margin: 0 !important;
     border-radius: 0;
     box-shadow: none;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
   }
   #cheque {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     border: 0 !important;
     background: transparent !important;
     box-shadow: none;

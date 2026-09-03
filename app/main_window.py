@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import date
 from decimal import Decimal
 
-from PySide6.QtCore import QDate, QMarginsF, QSizeF, QUrl, Qt
+from PySide6.QtCore import QDate, QMarginsF, QUrl, Qt
 from PySide6.QtGui import QDesktopServices, QPageLayout, QPageSize, QPainter
 from PySide6.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog, QPrinterInfo
 from PySide6.QtWidgets import (
@@ -29,7 +29,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from app.cheque_painter import Calibration, DrawOptions, page_size_mm, paint_cheque
+from app.cheque_painter import Calibration, DrawOptions, paint_cheque
 from app.alignment_dialog import AlignmentDialog
 from app.pchc import (
     alignment_sample,
@@ -147,6 +147,10 @@ class MainWindow(QWidget):
         self.bank = QComboBox()
         for bank_id, name in bank_choices():
             self.bank.addItem(name, bank_id)
+        self.paper_mode_box = QComboBox()
+        self.paper_mode_box.addItem("A4 driver — load cheque at top of tray", "a4")
+        self.paper_mode_box.addItem("Letter driver — load cheque at top of tray", "letter")
+
         self.cheque_type = QComboBox()
         self.cheque_type.addItem("Personal", "personal")
         self.cheque_type.addItem("Corporate", "corporate")
@@ -179,7 +183,8 @@ class MainWindow(QWidget):
         title = QLabel("Philippine Cheque Writer")
         title.setObjectName("AppTitle")
         lede = QLabel(
-            "Fill the form → check the live preview → Print onto real cheque stock at 100%."
+            "Put the real cheque in the tray, top first. Keep printer paper on A4. "
+            "Only the fill-in text prints, 8 × 3.5 in at the top-left, onto the cheque. Print at 100%."
         )
         lede.setObjectName("AppLede")
         lede.setWordWrap(True)
@@ -190,6 +195,7 @@ class MainWindow(QWidget):
         bank_form.setLabelAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         bank_form.addRow("Bank", self.bank)
         bank_form.addRow("Cheque type", self.cheque_type)
+        bank_form.addRow("Driver paper", self.paper_mode_box)
         bank_box = QGroupBox("1. Select bank")
         bank_box.setLayout(bank_form)
 
@@ -306,6 +312,7 @@ class MainWindow(QWidget):
 
         self.bank.currentIndexChanged.connect(self._on_bank_changed)
         self.cheque_type.currentIndexChanged.connect(self._on_bank_changed)
+        self.paper_mode_box.currentIndexChanged.connect(self._on_paper_changed)
         self.issue_date.dateChanged.connect(self._on_form_changed)
         self.payee.textChanged.connect(self._on_form_changed)
         self.amount.textChanged.connect(self._on_form_changed)
@@ -351,6 +358,10 @@ class MainWindow(QWidget):
         self.bank.setCurrentIndex(idx if idx >= 0 else 0)
         type_idx = self.cheque_type.findData(self.settings.get("cheque_type", "personal"))
         self.cheque_type.setCurrentIndex(type_idx if type_idx >= 0 else 0)
+        paper_idx = self.paper_mode_box.findData(self.settings.get("paper_mode", "a4"))
+        if self.settings.get("paper_mode") == "cheque":
+            paper_idx = self.paper_mode_box.findData("a4")
+        self.paper_mode_box.setCurrentIndex(paper_idx if paper_idx >= 0 else 0)
         if self.settings.get("words_mode", "auto") == "manual":
             self.words_manual.setChecked(True)
         else:
@@ -425,7 +436,12 @@ class MainWindow(QWidget):
         )
 
     def _paper_mode(self) -> str:
-        return str(self.settings.get("paper_mode", "cheque"))
+        return str(self.paper_mode_box.currentData() or "a4")
+
+    def _on_paper_changed(self) -> None:
+        self.settings["paper_mode"] = self._paper_mode()
+        save_settings(self.settings)
+        self._on_form_changed()
 
     def _feed(self) -> str:
         return str(self.settings.get("feed", "top_first"))
@@ -495,6 +511,7 @@ class MainWindow(QWidget):
     def _persist_form(self) -> None:
         self.settings["bank_id"] = self._bank_id()
         self.settings["cheque_type"] = self._cheque_type()
+        self.settings["paper_mode"] = self._paper_mode()
         self.settings["words_mode"] = self._words_mode()
         self.settings["pad_symbols"] = self.pad.isChecked()
         save_settings(self.settings)
@@ -504,18 +521,10 @@ class MainWindow(QWidget):
         QDesktopServices.openUrl(QUrl.fromLocalFile(str(page)))
 
     def _configure_printer(self, printer: QPrinter, paper_mode: str, feed: str, template: dict) -> None:
-        width_mm, height_mm = page_size_mm(paper_mode, feed, template)
         if paper_mode == "letter":
             page_size = QPageSize(QPageSize.PageSizeId.Letter)
-        elif paper_mode == "a4":
-            page_size = QPageSize(QPageSize.PageSizeId.A4)
         else:
-            page_size = QPageSize(
-                QSizeF(width_mm, height_mm),
-                QPageSize.Unit.Millimeter,
-                "PH Cheque",
-                QPageSize.SizeMatchPolicy.ExactMatch,
-            )
+            page_size = QPageSize(QPageSize.PageSizeId.A4)
         layout = QPageLayout(
             page_size,
             QPageLayout.Orientation.Portrait,
@@ -549,6 +558,7 @@ class MainWindow(QWidget):
             QMessageBox.warning(self, "Cheque", "Enter a payee and an amount before printing.")
             return
         printer = self._make_printer()
+        self._configure_printer(printer, self._paper_mode(), self._feed(), self._template())
         dialog = QPrintDialog(printer, self)
         if dialog.exec() != QPrintDialog.DialogCode.Accepted:
             return
@@ -562,6 +572,7 @@ class MainWindow(QWidget):
         if not fields:
             return
         printer = self._make_printer()
+        self._configure_printer(printer, self._paper_mode(), self._feed(), self._template())
         preview = QPrintPreviewDialog(printer, self)
         preview.paintRequested.connect(
             lambda p: self._paint_job(p, fields, self._calibration(), self._paper_mode(), self._feed())
@@ -591,6 +602,11 @@ class MainWindow(QWidget):
         )
         self.settings["paper_mode"] = paper
         self.settings["feed"] = feed
+        idx = self.paper_mode_box.findData(paper)
+        if idx >= 0:
+            self.paper_mode_box.blockSignals(True)
+            self.paper_mode_box.setCurrentIndex(idx)
+            self.paper_mode_box.blockSignals(False)
         self._persist_form()
         self._refresh_preview()
         self.status.setText("Alignment saved for this bank and printer.")

@@ -10,7 +10,7 @@
   <div class="app">
     <aside class="panel">
       <h1>Philippine Cheque Writer</h1>
-      <p class="lede">Print onto real cheque paper. Leaf size is 8 × 3.5 in. Load the cheque at the top of the tray.</p>
+      <p class="lede">Put the real cheque in the printer tray (top first). The printer still uses A4 in software; this app only prints the fill-in text onto the top-left 8 × 3.5 in of that page — onto your cheque.</p>
 
       <label>Bank
         <select id="bank"></select>
@@ -49,11 +49,10 @@
 
       <div class="align">
         <h2>Printer</h2>
-        <label>Printer paper
+        <label>Printer driver size (not the cheque)
           <select id="paperMode">
-            <option value="a4" selected>A4 — cheque at top-left (Epson / PH)</option>
-            <option value="letter">Letter — cheque at top-left</option>
-            <option value="cheque">Cheque stock 8 × 3.5 in</option>
+            <option value="a4" selected>A4 driver — load cheque at top of tray</option>
+            <option value="letter">Letter driver — load cheque at top of tray</option>
           </select>
         </label>
         <h2>Alignment</h2>
@@ -72,7 +71,7 @@
         <button id="printBtn" type="button">Print</button>
         <button id="testBtn" type="button" class="secondary">Alignment test</button>
       </div>
-      <p class="hint">In the print dialog: More settings → Scale <strong>100%</strong>, Margins <strong>None</strong>, turn <strong>Headers and footers off</strong>. Do not use Fit to page. Load the cheque at the top of the paper tray. Sign by hand.</p>
+      <p class="hint">Load the <strong>actual cheque</strong> at the top of the tray. Keep this on A4 (Epson PH). Print dialog: Scale <strong>100%</strong>, Margins <strong>None</strong>, Headers and footers <strong>off</strong>. Do not use Fit to page. Use Alignment if the text misses the boxes. Sign by hand.</p>
     </aside>
 
     <main class="stage">
@@ -101,7 +100,8 @@
             <div id="fMemo" class="field memo"></div>
           </div>
         </div>
-        <p id="sizeCaption">Print size 7.5 × 3.5 in (190.5 × 88.9 mm) · PCHC cheque face, stub not included</p>
+        <p id="sizeCaption">Cheque 8.00 × 3.50 in on A4 paper, top-left</p>
+      </div>
       </div>
     </main>
   </div>

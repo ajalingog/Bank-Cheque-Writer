@@ -58,9 +58,8 @@ class AlignmentDialog(QDialog):
         self.stub.setValue(calibration.stub_width_mm)
 
         self.paper = QComboBox()
-        self.paper.addItem("Cheque size (7.5 × 3.5 in)", "cheque")
-        self.paper.addItem("Letter, cheque at top-left", "letter")
-        self.paper.addItem("A4, cheque at top-left", "a4")
+        self.paper.addItem("A4 driver — load cheque at top of tray", "a4")
+        self.paper.addItem("Letter driver — load cheque at top of tray", "letter")
         idx = self.paper.findData(paper_mode)
         if idx >= 0:
             self.paper.setCurrentIndex(idx)

@@ -14,7 +14,7 @@ DEFAULTS: dict[str, Any] = {
     "bank_id": "landbank",
     "cheque_type": "personal",
     "pad_symbols": True,
-    "paper_mode": "cheque",
+    "paper_mode": "a4",
     "feed": "top_first",
     "printer_name": "",
     "calibrations": {},
