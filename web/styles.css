@@ -70,6 +70,13 @@ button:hover { background: var(--green-2); }
   box-shadow: 0 10px 30px rgba(18, 32, 24, 0.18);
 }
 
+#cheque {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #8aa090;
+  background: #f4f7f2;
+}
+
 #sizeCaption {
   margin: 10px 0 0;
   text-align: center;
@@ -135,33 +142,46 @@ button:hover { background: var(--green-2); }
 
 @media print {
   @page {
-    size: 190.5mm 88.9mm;
     margin: 0;
   }
   html, body {
-    background: #fff;
-    height: auto;
+    background: #fff !important;
+    height: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  .app { display: block; }
-  .app > .panel { display: none; }
+  .app {
+    display: block !important;
+    min-height: 0;
+  }
+  .app > .panel { display: none !important; }
   .stage {
-    display: block;
-    padding: 0;
-    overflow: visible;
+    display: block !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
   }
   #sheet {
-    background: transparent;
-    padding: 0;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
     border-radius: 0;
     box-shadow: none;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   #cheque {
-    border: 0;
-    background: transparent;
+    border: 0 !important;
+    background: transparent !important;
     box-shadow: none;
     overflow: visible;
+    margin: 0;
   }
-  .guide-art { display: none; }
+  .guide-art { display: none !important; }
   .field { color: #000; }
-  #sizeCaption { display: none; }
+  #sizeCaption { display: none !important; }
 }

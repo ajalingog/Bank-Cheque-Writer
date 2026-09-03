@@ -10,9 +10,13 @@ const padInput = document.getElementById("pad");
 const offsetX = document.getElementById("offsetX");
 const offsetY = document.getElementById("offsetY");
 const stubInput = document.getElementById("stub");
+const paperMode = document.getElementById("paperMode");
 const cheque = document.getElementById("cheque");
 const guideBank = document.getElementById("guideBank");
 const dateBoxes = document.getElementById("dateBoxes");
+
+const CHEQUE_WIDTH_MM = 8 * 25.4;
+const CHEQUE_HEIGHT_MM = 3.5 * 25.4;
 
 let template = null;
 let alignmentMode = false;
@@ -78,6 +82,7 @@ function saveCal() {
     })
   );
   localStorage.setItem("cheque-words-mode", wordsMode.value || "auto");
+  localStorage.setItem("cheque-paper-mode", paperMode.value || "a4");
 }
 
 function applyCalToForm(bankId) {
@@ -93,13 +98,18 @@ function applyLayout() {
   const stub = Number(stubInput.value) || 0;
   const ox = (Number(offsetX.value) || 0) + (template.offset_x_mm || 0) + stub;
   const oy = (Number(offsetY.value) || 0) + (template.offset_y_mm || 0);
-  cheque.style.width = `${template.page_width_mm}mm`;
-  cheque.style.height = `${template.page_height_mm}mm`;
-  const inchesW = (template.page_width_mm / 25.4).toFixed(2);
-  const inchesH = (template.page_height_mm / 25.4).toFixed(2);
+  cheque.style.width = `${CHEQUE_WIDTH_MM}mm`;
+  cheque.style.height = `${CHEQUE_HEIGHT_MM}mm`;
+  const inchesW = (CHEQUE_WIDTH_MM / 25.4).toFixed(2);
+  const inchesH = (CHEQUE_HEIGHT_MM / 25.4).toFixed(2);
+  const paperLabel =
+    paperMode.value === "letter" ? "on Letter paper, top-left" :
+    paperMode.value === "cheque" ? "on 8 × 3.5 in cheque stock" :
+    "on A4 paper, top-left";
   document.getElementById("sizeCaption").textContent =
-    `Print size ${inchesW} × ${inchesH} in (${template.page_width_mm} × ${template.page_height_mm} mm) · PCHC cheque face, stub not included`;
+    `Cheque ${inchesW} × ${inchesH} in (${CHEQUE_WIDTH_MM.toFixed(1)} × ${CHEQUE_HEIGHT_MM.toFixed(1)} mm) · ${paperLabel}`;
   cheque.style.transform = `translate(${ox}mm, ${oy}mm)`;
+  setPrintPageSize();
 
   cheque.style.background = template.brand?.paper || "#f4f7f2";
   cheque.style.borderColor = template.brand?.primary || "#1f4d3a";
@@ -245,6 +255,25 @@ function onFormChange() {
   refreshFields();
 }
 
+function setPrintPageSize() {
+  let rule = document.getElementById("printPageRule");
+  if (!rule) {
+    rule = document.createElement("style");
+    rule.id = "printPageRule";
+    document.head.appendChild(rule);
+  }
+  const size =
+    paperMode.value === "letter" ? "letter portrait" :
+    paperMode.value === "cheque" ? "8in 3.5in" :
+    "A4 portrait";
+  rule.textContent = `@media print { @page { size: ${size}; margin: 0; } }`;
+}
+
+function printCheque() {
+  setPrintPageSize();
+  window.print();
+}
+
 document.getElementById("printBtn").addEventListener("click", () => {
   alignmentMode = false;
   if (!payeeInput.value.trim() || !amountInput.value.trim()) {
@@ -256,13 +285,13 @@ document.getElementById("printBtn").addEventListener("click", () => {
     return;
   }
   refreshFields();
-  window.print();
+  printCheque();
 });
 
 document.getElementById("testBtn").addEventListener("click", () => {
   alignmentMode = true;
   refreshFields();
-  window.print();
+  printCheque();
   alignmentMode = false;
   refreshFields();
 });
@@ -273,7 +302,7 @@ wordsMode.addEventListener("change", () => {
 });
 
 ["change", "input"].forEach((evt) => {
-  [bankSelect, chequeType, dateInput, payeeInput, amountInput, amountWordsInput, memoInput, padInput, offsetX, offsetY, stubInput].forEach((el) => {
+  [bankSelect, chequeType, dateInput, payeeInput, amountInput, amountWordsInput, memoInput, padInput, offsetX, offsetY, stubInput, paperMode].forEach((el) => {
     el.addEventListener(evt, () => {
       if ((el === bankSelect || el === chequeType) && evt === "change") {
         loadTemplate();
@@ -286,6 +315,8 @@ wordsMode.addEventListener("change", () => {
 
 dateInput.value = todayIso();
 wordsMode.value = localStorage.getItem("cheque-words-mode") || "auto";
+paperMode.value = localStorage.getItem("cheque-paper-mode") || "a4";
 applyWordsMode();
+setPrintPageSize();
 loadBanks();
 loadTemplate();

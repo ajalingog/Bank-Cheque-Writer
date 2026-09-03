@@ -10,7 +10,7 @@
   <div class="app">
     <aside class="panel">
       <h1>Philippine Cheque Writer</h1>
-      <p class="lede">Select the bank and Personal or Corporate. Print overlays that bank’s cheque boxes at 7.5 × 3.5 in.</p>
+      <p class="lede">Print onto real cheque paper. Leaf size is 8 × 3.5 in. Load the cheque at the top of the tray.</p>
 
       <label>Bank
         <select id="bank"></select>
@@ -48,6 +48,14 @@
       </label>
 
       <div class="align">
+        <h2>Printer</h2>
+        <label>Printer paper
+          <select id="paperMode">
+            <option value="a4" selected>A4 — cheque at top-left (Epson / PH)</option>
+            <option value="letter">Letter — cheque at top-left</option>
+            <option value="cheque">Cheque stock 8 × 3.5 in</option>
+          </select>
+        </label>
         <h2>Alignment</h2>
         <label>Move right (X)
           <input id="offsetX" type="number" step="0.1" value="0" />
@@ -64,7 +72,7 @@
         <button id="printBtn" type="button">Print</button>
         <button id="testBtn" type="button" class="secondary">Alignment test</button>
       </div>
-      <p class="hint">Each bank uses its own box positions. Print at Actual size / 100%. Do not tick Fit to page. Tear off the stub, or set stub width. Sign by hand.</p>
+      <p class="hint">In the print dialog: More settings → Scale <strong>100%</strong>, Margins <strong>None</strong>, turn <strong>Headers and footers off</strong>. Do not use Fit to page. Load the cheque at the top of the paper tray. Sign by hand.</p>
     </aside>
 
     <main class="stage">
